@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_myskin/ui/pages/dokter_page.dart';
 import 'package:flutter_application_myskin/ui/pages/konsultasi_page.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../pages/home_page.dart';
 import '../pages/profile_page.dart';
 
 class MainPage extends StatefulWidget {
-  const MainPage({Key? key}) : super(key: key);
+  int? selected;
+  MainPage({
+    Key? key,
+    this.selected = 0,
+  }) : super(key: key);
 
   @override
   State<MainPage> createState() => _MainPageState();
@@ -14,22 +19,6 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   int _selectedNavBar = 0;
-  final List<BottomNavigationBarItem> _itemList = [
-    const BottomNavigationBarItem(
-      icon: Icon(Icons.home),
-      label: 'Beranda',
-    ),
-    const BottomNavigationBarItem(
-        icon: Icon(Icons.assignment), label: 'Pesanan'),
-    const BottomNavigationBarItem(
-      icon: Icon(Icons.mail),
-      label: 'Inbox',
-    ),
-    const BottomNavigationBarItem(
-      icon: Icon(Icons.person),
-      label: 'Akun',
-    ),
-  ];
 
   final List<Widget> _pageList = [
     const HomePage(),
@@ -40,35 +29,82 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Bottom Navigation Example'),
-      ),
       body: Container(
         width: double.infinity,
         height: double.infinity,
-        color: Colors.grey[300],
+        color: Colors.transparent,
         alignment: Alignment.center,
-        child: _pageList[_selectedNavBar],
+        child: _pageList[widget.selected!],
       ),
       bottomNavigationBar: Theme(
         data: Theme.of(context).copyWith(
-            // sets the background color of the `BottomNavigationBar`
-            canvasColor: Colors.blue,
-            // sets the active color of the `BottomNavigationBar` if `Brightness` is light
-            textTheme: Theme.of(context)
-                .textTheme
-                .copyWith(caption: const TextStyle(color: Colors.yellow))), //
-        child: BottomNavigationBar(
-          items: _itemList,
-          currentIndex: _selectedNavBar,
-          selectedItemColor: Colors.black,
-          unselectedLabelStyle: const TextStyle(color: Colors.blue),
-          unselectedItemColor: Colors.white,
-          onTap: (int? v) {
-            setState(() {
-              _selectedNavBar = v!;
-            });
-          },
+          canvasColor: Colors.white,
+        ),
+        child: Container(
+          margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 17),
+          color: Colors.transparent,
+          child: ClipRRect(
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(18.0),
+              topRight: Radius.circular(18.0),
+              bottomLeft: Radius.circular(18.0),
+              bottomRight: Radius.circular(18.0),
+            ),
+            child: BottomNavigationBar(
+              backgroundColor: Colors.transparent,
+              items: [
+                BottomNavigationBarItem(
+                  icon: Image.asset('assets/icons/icon_home.png',
+                      width: 24,
+                      height: 24,
+                      color: widget.selected == 0
+                          ? const Color(0xffEE7814)
+                          : const Color(0xff999999)),
+                  label: 'Beranda',
+                ),
+                BottomNavigationBarItem(
+                  icon: Image.asset('assets/icons/icon_survey.png',
+                      width: 24,
+                      height: 24,
+                      color: widget.selected == 1
+                          ? const Color(0xffEE7814)
+                          : const Color(0xff999999)),
+                  label: 'Hasil Survey',
+                ),
+                BottomNavigationBarItem(
+                  icon: Image.asset('assets/icons/icon_artikel.png',
+                      width: 24,
+                      height: 24,
+                      color: widget.selected == 2
+                          ? const Color(0xffEE7814)
+                          : const Color(0xff999999)),
+                  label: 'Artikel',
+                ),
+                BottomNavigationBarItem(
+                  icon: Image.asset('assets/icons/icon_profile_nav.png',
+                      width: 24,
+                      height: 24,
+                      color: widget.selected == 3
+                          ? const Color(0xffEE7814)
+                          : const Color(0xff999999)),
+                  label: 'Profile',
+                ),
+              ],
+              selectedLabelStyle: GoogleFonts.poppins(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                  color: Color(0xffEE7814)),
+              currentIndex: widget.selected!.toInt(),
+              selectedItemColor: Color(0xffEE7814),
+              unselectedLabelStyle: const TextStyle(color: Colors.blue),
+              unselectedItemColor: Colors.black,
+              onTap: (int? v) {
+                setState(() {
+                  widget.selected = v!;
+                });
+              },
+            ),
+          ),
         ),
       ),
     );
