@@ -1,18 +1,18 @@
 import 'dart:convert';
 
-ResponseLogin responseLoginFromJson(String str) =>
-    ResponseLogin.fromJson(json.decode(str));
+ResponseUpdatePasien responseUpdatePasienFromJson(String str) =>
+    ResponseUpdatePasien.fromJson(json.decode(str));
 
-String responseLoginToJson(ResponseLogin DataLogin) =>
-    json.encode(DataLogin.toJson());
+String responseUpdatePasienToJson(ResponseUpdatePasien data) =>
+    json.encode(data.toJson());
 
-class ResponseLogin {
+class ResponseUpdatePasien {
   Meta? meta;
   Data? data;
 
-  ResponseLogin({this.meta, this.data});
+  ResponseUpdatePasien({this.meta, this.data});
 
-  ResponseLogin.fromJson(Map<String, dynamic> json) {
+  ResponseUpdatePasien.fromJson(Map<String, dynamic> json) {
     meta = json['meta'] != null ? Meta.fromJson(json['meta']) : null;
     data = json['data'] != null ? Data.fromJson(json['data']) : null;
   }
@@ -52,30 +52,6 @@ class Meta {
 }
 
 class Data {
-  String? accessToken;
-  String? tokenType;
-  Pasien? pasien;
-
-  Data({this.accessToken, this.tokenType, this.pasien});
-
-  Data.fromJson(Map<String, dynamic> json) {
-    accessToken = json['access_token'];
-    tokenType = json['token_type'];
-    pasien = json['pasien'] != null ? Pasien.fromJson(json['pasien']) : null;
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['access_token'] = accessToken;
-    data['token_type'] = tokenType;
-    if (pasien != null) {
-      data['pasien'] = pasien!.toJson();
-    }
-    return data;
-  }
-}
-
-class Pasien {
   int? id;
   String? namaPasien;
   String? email;
@@ -85,7 +61,7 @@ class Pasien {
   String? createdAt;
   String? updatedAt;
 
-  Pasien(
+  Data(
       {this.id,
       this.namaPasien,
       this.email,
@@ -95,7 +71,7 @@ class Pasien {
       this.createdAt,
       this.updatedAt});
 
-  Pasien.fromJson(Map<String, dynamic> json) {
+  Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     namaPasien = json['nama_pasien'];
     email = json['email'];

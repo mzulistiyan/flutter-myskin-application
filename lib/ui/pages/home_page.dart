@@ -4,6 +4,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -27,6 +28,17 @@ class _HomePageState extends State<HomePage> {
     }
     return result;
   }
+
+  Widget buildIndicator() => AnimatedSmoothIndicator(
+        activeIndex: _currentIndex,
+        count: cardList.length,
+        effect: const ExpandingDotsEffect(
+          dotHeight: 7,
+          dotWidth: 7,
+          dotColor: Color(0xffD1D1D1),
+          activeDotColor: Color(0xffEE7814),
+        ),
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -65,18 +77,10 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ],
                   ),
-                  Container(
-                    padding: const EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.transparent,
-                      border: Border.all(color: Colors.orange),
-                    ),
-                    child: const Icon(
-                      Icons.person,
-                      color: Colors.orange,
-                      size: 30,
-                    ),
+                  Image.asset(
+                    'assets/icons/icon_profile_default.png',
+                    width: 55,
+                    height: 55,
                   )
                 ],
               ),
@@ -111,22 +115,12 @@ class _HomePageState extends State<HomePage> {
                   });
                 }).toList(),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: map<Widget>(cardList, (index, url) {
-                  return Container(
-                    width: 10.0,
-                    height: 10.0,
-                    margin:
-                        EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: _currentIndex == index
-                          ? Colors.blueAccent
-                          : Colors.grey,
-                    ),
-                  );
-                }),
+              const SizedBox(
+                height: 30,
+              ),
+              Center(child: buildIndicator()),
+              const SizedBox(
+                height: 30,
               ),
               Text(
                 'Layanan MySkin',
@@ -165,12 +159,15 @@ class _HomePageState extends State<HomePage> {
                       fontWeight: FontWeight.w500,
                     ),
                   ),
-                  Text(
-                    'Lihat Semua',
-                    style: GoogleFonts.poppins(
-                      fontSize: 12,
-                      color: const Color(0xffEE7814),
-                      fontWeight: FontWeight.w500,
+                  GestureDetector(
+                    onTap: () => Navigator.pushNamed(context, '/dokter-page'),
+                    child: Text(
+                      'Lihat Semua',
+                      style: GoogleFonts.poppins(
+                        fontSize: 12,
+                        color: const Color(0xffEE7814),
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                   ),
                 ],
@@ -189,7 +186,7 @@ class _HomePageState extends State<HomePage> {
                         margin: const EdgeInsets.symmetric(vertical: 5),
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         decoration: BoxDecoration(
-                            color: const Color(0xffF5F5F5),
+                            color: const Color(0xffFFFFFF),
                             border: Border.all(
                               color: const Color(0xffE3E3E3),
                               width: 1,

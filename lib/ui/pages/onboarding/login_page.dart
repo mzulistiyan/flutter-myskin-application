@@ -233,11 +233,14 @@ class _LoginPageState extends State<LoginPage> {
             const SizedBox(
               height: 20,
             ),
-            Text(
-              'Forgot password?',
-              style: GoogleFonts.poppins(
-                fontWeight: FontWeight.w500,
-                fontSize: 12,
+            GestureDetector(
+              onTap: () => Navigator.pushNamed(context, '/lupa-password-page'),
+              child: Text(
+                'Lupa Kata Sandi?',
+                style: GoogleFonts.poppins(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 12,
+                ),
               ),
             ),
             const SizedBox(

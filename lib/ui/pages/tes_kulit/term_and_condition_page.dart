@@ -152,7 +152,9 @@ class _TermAndConditionPageState extends State<TermAndConditionPage> {
         padding: EdgeInsets.all(24),
         child: PrimaryButton(
           text: 'Mulai',
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pushNamed(context, '/tes-kesehatan-page');
+          },
         ),
       ),
     );

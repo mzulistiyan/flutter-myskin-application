@@ -1,18 +1,17 @@
 import 'dart:convert';
 
-ResponseLogin responseLoginFromJson(String str) =>
-    ResponseLogin.fromJson(json.decode(str));
+ResponseGetPasien pasienFromJson(String str) =>
+    ResponseGetPasien.fromJson(json.decode(str));
 
-String responseLoginToJson(ResponseLogin DataLogin) =>
-    json.encode(DataLogin.toJson());
+String pasienToJson(ResponseGetPasien data) => json.encode(data.toJson());
 
-class ResponseLogin {
+class ResponseGetPasien {
   Meta? meta;
   Data? data;
 
-  ResponseLogin({this.meta, this.data});
+  ResponseGetPasien({this.meta, this.data});
 
-  ResponseLogin.fromJson(Map<String, dynamic> json) {
+  ResponseGetPasien.fromJson(Map<String, dynamic> json) {
     meta = json['meta'] != null ? Meta.fromJson(json['meta']) : null;
     data = json['data'] != null ? Data.fromJson(json['data']) : null;
   }
@@ -52,30 +51,6 @@ class Meta {
 }
 
 class Data {
-  String? accessToken;
-  String? tokenType;
-  Pasien? pasien;
-
-  Data({this.accessToken, this.tokenType, this.pasien});
-
-  Data.fromJson(Map<String, dynamic> json) {
-    accessToken = json['access_token'];
-    tokenType = json['token_type'];
-    pasien = json['pasien'] != null ? Pasien.fromJson(json['pasien']) : null;
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['access_token'] = accessToken;
-    data['token_type'] = tokenType;
-    if (pasien != null) {
-      data['pasien'] = pasien!.toJson();
-    }
-    return data;
-  }
-}
-
-class Pasien {
   int? id;
   String? namaPasien;
   String? email;
@@ -85,7 +60,7 @@ class Pasien {
   String? createdAt;
   String? updatedAt;
 
-  Pasien(
+  Data(
       {this.id,
       this.namaPasien,
       this.email,
@@ -95,7 +70,7 @@ class Pasien {
       this.createdAt,
       this.updatedAt});
 
-  Pasien.fromJson(Map<String, dynamic> json) {
+  Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     namaPasien = json['nama_pasien'];
     email = json['email'];

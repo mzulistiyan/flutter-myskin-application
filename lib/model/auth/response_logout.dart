@@ -5,14 +5,14 @@ class ResponseLogout {
   ResponseLogout({this.meta, this.data});
 
   ResponseLogout.fromJson(Map<String, dynamic> json) {
-    meta = json['meta'] != null ? new Meta.fromJson(json['meta']) : null;
+    meta = json['meta'] != null ? Meta.fromJson(json['meta']) : null;
     data = json['data'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.meta != null) {
-      data['meta'] = this.meta!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (meta != null) {
+      data['meta'] = meta!.toJson();
     }
     data['data'] = this.data;
     return data;
@@ -33,10 +33,10 @@ class Meta {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['code'] = this.code;
-    data['status'] = this.status;
-    data['message'] = this.message;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['code'] = code;
+    data['status'] = status;
+    data['message'] = message;
     return data;
   }
 }

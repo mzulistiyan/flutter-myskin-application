@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
-class DokterPage extends StatelessWidget {
-  const DokterPage({super.key});
+class ArikelPage extends StatelessWidget {
+  const ArikelPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('INI DokterPage'),
+        title: Text('INI ArikelPage'),
       ),
       body: Center(
-        child: Text('ini DokterPage'),
+        child: Text('ini ArikelPage'),
       ),
     );
   }
