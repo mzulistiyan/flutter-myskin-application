@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_myskin/ui/pages/artikel_page.dart';
+import 'package:flutter_application_myskin/ui/pages/artikel/artikel_page.dart';
 import 'package:flutter_application_myskin/ui/pages/dokter/dokter_page.dart';
 import 'package:flutter_application_myskin/ui/pages/konsultasi_page.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -21,7 +21,7 @@ class _MainPageState extends State<MainPage> {
 
   final List<Widget> _pageList = [
     const HomePage(),
-    const KonsultasiPage(),
+    const RekamMedisPage(),
     const ArikelPage(),
     const ProfilePage(),
   ];
@@ -40,8 +40,6 @@ class _MainPageState extends State<MainPage> {
           canvasColor: Colors.white,
         ),
         child: Container(
-          margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 17),
-          color: Colors.transparent,
           child: ClipRRect(
             borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(18.0),

@@ -19,7 +19,7 @@ class _SplashPageState extends State<SplashPage> {
       final TokenHelper _tokenHelper = TokenHelper();
       String token = await _tokenHelper.getToken();
 
-      if (initScreen == 0) {
+      if (initScreen == 0 || initScreen == null) {
         Navigator.pushNamedAndRemoveUntil(
             context, '/get-started', (route) => false);
       } else {

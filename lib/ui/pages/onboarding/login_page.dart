@@ -3,7 +3,6 @@ import 'package:flutter_application_myskin/bloc/auth/event/login_event.dart';
 import 'package:flutter_application_myskin/bloc/auth/handle_api/login_bloc.dart';
 import 'package:flutter_application_myskin/model/auth/response_login.dart';
 import 'package:flutter_application_myskin/shared/helper/token_helper.dart';
-import 'package:flutter_application_myskin/ui/widget/bottom_navigation.dart';
 import 'package:flutter_application_myskin/ui/widget/primary_button.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -43,105 +42,123 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 80),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    width: 40,
-                    height: 40,
-                    decoration: BoxDecoration(
-                      color: const Color(0xffEFEFEF),
-                      shape: BoxShape.circle,
-                      boxShadow: [
-                        BoxShadow(
-                          offset: const Offset(0, 1),
-                          blurRadius: 5,
-                          color: Colors.black.withOpacity(0.3),
-                        ),
-                      ],
-                    ),
-                    child: Center(
-                      child: Image.asset(
-                        'assets/icons/icon_WA.png',
-                        width: 15,
-                        height: 18,
-                      ),
-                    ),
+            // Padding(
+            //   padding: const EdgeInsets.symmetric(horizontal: 80),
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //     children: [
+            //       Container(
+            //         width: 40,
+            //         height: 40,
+            //         decoration: BoxDecoration(
+            //           color: const Color(0xffEFEFEF),
+            //           shape: BoxShape.circle,
+            //           boxShadow: [
+            //             BoxShadow(
+            //               offset: const Offset(0, 1),
+            //               blurRadius: 5,
+            //               color: Colors.black.withOpacity(0.3),
+            //             ),
+            //           ],
+            //         ),
+            //         child: Center(
+            //           child: Image.asset(
+            //             'assets/icons/icon_WA.png',
+            //             width: 15,
+            //             height: 18,
+            //           ),
+            //         ),
+            //       ),
+            //       Container(
+            //         width: 40,
+            //         height: 40,
+            //         decoration: BoxDecoration(
+            //           color: const Color(0xffEFEFEF),
+            //           shape: BoxShape.circle,
+            //           boxShadow: [
+            //             BoxShadow(
+            //               offset: const Offset(0, 1),
+            //               blurRadius: 5,
+            //               color: Colors.black.withOpacity(0.3),
+            //             ),
+            //           ],
+            //         ),
+            //         child: Center(
+            //           child: Image.asset(
+            //             'assets/icons/icon_google.png',
+            //             width: 15,
+            //             height: 25,
+            //           ),
+            //         ),
+            //       ),
+            //       Container(
+            //         width: 40,
+            //         height: 40,
+            //         decoration: BoxDecoration(
+            //           color: const Color(0xffEFEFEF),
+            //           shape: BoxShape.circle,
+            //           boxShadow: [
+            //             BoxShadow(
+            //               offset: const Offset(0, 1),
+            //               blurRadius: 5,
+            //               color: Colors.black.withOpacity(0.3),
+            //             ),
+            //           ],
+            //         ),
+            //         child: Center(
+            //           child: Image.asset(
+            //             'assets/icons/icon_facebook.png',
+            //             width: 10,
+            //             height: 18,
+            //           ),
+            //         ),
+            //       )
+            //     ],
+            //   ),
+            // ),
+
+            // Center(
+            //   child: Column(
+            //     children: [
+            //       Text(
+            //         'Login with',
+            //         style: GoogleFonts.poppins(
+            //           fontSize: 10,
+            //           fontWeight: FontWeight.w400,
+            //         ),
+            //       ),
+            //       const SizedBox(
+            //         height: 15,
+            //       ),
+            //       Text(
+            //         'or',
+            //         style: GoogleFonts.poppins(
+            //           fontSize: 10,
+            //           fontWeight: FontWeight.w400,
+            //         ),
+            //       ),
+            //     ],
+            //   ),
+            // ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Masuk ',
+                  style: GoogleFonts.poppins(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w700,
                   ),
-                  Container(
-                    width: 40,
-                    height: 40,
-                    decoration: BoxDecoration(
-                      color: const Color(0xffEFEFEF),
-                      shape: BoxShape.circle,
-                      boxShadow: [
-                        BoxShadow(
-                          offset: const Offset(0, 1),
-                          blurRadius: 5,
-                          color: Colors.black.withOpacity(0.3),
-                        ),
-                      ],
-                    ),
-                    child: Center(
-                      child: Image.asset(
-                        'assets/icons/icon_google.png',
-                        width: 15,
-                        height: 25,
-                      ),
-                    ),
+                ),
+                Text(
+                  'MySkin',
+                  style: GoogleFonts.poppins(
+                    fontSize: 20,
+                    color: const Color(0xffEE7814),
+                    fontWeight: FontWeight.w700,
                   ),
-                  Container(
-                    width: 40,
-                    height: 40,
-                    decoration: BoxDecoration(
-                      color: const Color(0xffEFEFEF),
-                      shape: BoxShape.circle,
-                      boxShadow: [
-                        BoxShadow(
-                          offset: const Offset(0, 1),
-                          blurRadius: 5,
-                          color: Colors.black.withOpacity(0.3),
-                        ),
-                      ],
-                    ),
-                    child: Center(
-                      child: Image.asset(
-                        'assets/icons/icon_facebook.png',
-                        width: 10,
-                        height: 18,
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            ),
-            const SizedBox(
-              height: 24,
-            ),
-            Center(
-              child: Column(
-                children: [
-                  Text(
-                    'Login with',
-                    style: GoogleFonts.poppins(
-                      fontSize: 10,
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  Text(
-                    'or',
-                    style: GoogleFonts.poppins(
-                      fontSize: 10,
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
             const SizedBox(
               height: 24,
@@ -309,31 +326,47 @@ class _LoginPageState extends State<LoginPage> {
               },
             ),
             const SizedBox(
-              height: 25,
+              height: 16,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'Don’t have account? ',
-                  style: GoogleFonts.poppins(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 12,
-                  ),
+            Center(
+              child: Text(
+                'Masuk sebagai Dokter',
+                style: GoogleFonts.poppins(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 12,
                 ),
-                GestureDetector(
-                  onTap: () => Navigator.pushNamed(context, '/register-page'),
-                  child: Text(
-                    'Sign Up here',
-                    style: GoogleFonts.poppins(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 12,
-                      color: Colors.blue,
-                    ),
-                  ),
+              ),
+            ),
+            const SizedBox(
+              height: 30,
+            ),
+          ],
+        ),
+      ),
+      bottomNavigationBar: Container(
+        padding: const EdgeInsets.all(10),
+        height: 50,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'Don’t have account? ',
+              style: GoogleFonts.poppins(
+                fontWeight: FontWeight.w500,
+                fontSize: 12,
+              ),
+            ),
+            GestureDetector(
+              onTap: () => Navigator.pushNamed(context, '/register-page'),
+              child: Text(
+                'Sign Up here',
+                style: GoogleFonts.poppins(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 12,
+                  color: Colors.blue,
                 ),
-              ],
-            )
+              ),
+            ),
           ],
         ),
       ),

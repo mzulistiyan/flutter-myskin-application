@@ -3,18 +3,20 @@ import 'package:flutter_application_myskin/bloc/auth/handle_api/logout_bloc.dart
 import 'package:flutter_application_myskin/bloc/auth/handle_api/pasien_bloc.dart';
 import 'package:flutter_application_myskin/bloc/auth/handle_api/registrasi_bloc.dart';
 import 'package:flutter_application_myskin/bloc/auth/handle_api/update_pasien_bloc.dart';
+import 'package:flutter_application_myskin/bloc/main/bloc/dokter_bloc.dart';
 import 'package:flutter_application_myskin/ui/pages/dokter/dokter_page.dart';
 import 'package:flutter_application_myskin/ui/pages/home_page.dart';
+import 'package:flutter_application_myskin/ui/pages/konsultasi/konsultasi_page.dart';
 import 'package:flutter_application_myskin/ui/pages/onboarding/login_page.dart';
 import 'package:flutter_application_myskin/ui/pages/onboarding/onboarding_page.dart';
 import 'package:flutter_application_myskin/ui/pages/onboarding/register_page.dart';
-import 'package:flutter_application_myskin/ui/pages/profile/edit_profile_page.dart';
 import 'package:flutter_application_myskin/ui/pages/profile/ganti_password._page.dart';
 import 'package:flutter_application_myskin/ui/pages/profile/lupa_password_page.dart';
 import 'package:flutter_application_myskin/ui/pages/splash_screen_page.dart';
 import 'package:flutter_application_myskin/ui/pages/tes_kulit/hasil_sementara_page.dart';
 import 'package:flutter_application_myskin/ui/pages/tes_kulit/term_and_condition_page.dart';
 import 'package:flutter_application_myskin/ui/pages/tes_kulit/tes_kesehatan_kulit_page.dart';
+import 'package:flutter_application_myskin/ui/pages/transaksi/transaksi_page.dart';
 import 'package:flutter_application_myskin/ui/widget/bottom_navigation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -44,6 +46,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => RegistrasiBloc()),
         BlocProvider(create: (_) => PasienBloc()),
         BlocProvider(create: (_) => UpdatePasienBloc()),
+        BlocProvider(create: (_) => DokterBloc()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -59,6 +62,8 @@ class MyApp extends StatelessWidget {
           '/ganti-kata-sandi-page': (context) => const GantiPasswordPage(),
           '/term-condition-page': (context) => const TermAndConditionPage(),
           '/tes-kesehatan-page': (context) => const TesKesehatanKulitPage(),
+          '/transaksi-page': (context) => const TransaksiPage(),
+          '/konsultasi-page': (context) => const KonsultasiPage(),
           '/hasil-sementara-page': (context) =>
               const HasilDiagnosaSementaraPage(),
         },

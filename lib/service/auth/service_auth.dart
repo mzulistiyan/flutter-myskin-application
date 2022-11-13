@@ -5,7 +5,7 @@ import 'package:flutter_application_myskin/shared/helper/token_helper.dart';
 import 'package:http/http.dart' as http;
 
 class APIService {
-  String baseUrl = 'https://894f-103-156-164-7.ap.ngrok.io';
+  String baseUrl = 'https://siderplatform.com/testing/myskin-app/public';
   Future<http.Response> loginProcess(String email, String password) async {
     final response = await http.post(Uri.parse('$baseUrl/api/login'),
         headers: {"Content-Type": "application/json", "Accept": "*/*"},
@@ -56,6 +56,26 @@ class APIService {
           "tanggal_lahir": tanggalLahir,
         }));
     print(response.statusCode);
+    try {
+      return response;
+    } catch (e) {
+      return response;
+    }
+  }
+
+  Future<http.Response> getDokter() async {
+    final TokenHelper _tokenHelper = TokenHelper();
+    String token = await _tokenHelper.getToken();
+
+    final response = await http.get(
+      Uri.parse('$baseUrl/api/get/dokter'),
+      headers: {
+        "Content-Type": "application/json;charset=UTF-8",
+        "Authorization": "Bearer $token",
+        "Charset": "utf-8"
+      },
+    );
+    print(token);
     try {
       return response;
     } catch (e) {

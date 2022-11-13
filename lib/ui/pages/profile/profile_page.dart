@@ -41,25 +41,15 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: Colors.white,
+        backgroundColor: const Color(0xffFAFAFA),
         title: Text(
           'Profile',
           style: GoogleFonts.poppins(
             fontSize: 18,
             fontWeight: FontWeight.w600,
             color: Colors.black,
-          ),
-        ),
-        leading: InkWell(
-          onTap: () {
-            Navigator.pop(context);
-          },
-          child: const Icon(
-            Icons.arrow_back_ios,
-            color: Colors.black54,
           ),
         ),
       ),
@@ -72,7 +62,7 @@ class _ProfilePageState extends State<ProfilePage> {
         builder: (context, state) {
           if (state is PasienLoading) {
             return Center(
-              child: shimmerHomePage(context),
+              child: shimmerProfilePage(context),
             );
           } else if (state is PasienSuccess) {
             return ListView(
