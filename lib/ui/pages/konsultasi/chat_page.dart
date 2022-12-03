@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_myskin/ui/widget/CustomTooltipShape.dart';
+import 'package:flutter_application_myskin/model/response_konsultasi.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 
-class ChatPage extends StatelessWidget {
-  const ChatPage({super.key});
+class ChatPage extends StatefulWidget {
+  Data responseKonsultasi;
+  ChatPage({super.key, required this.responseKonsultasi});
 
+  @override
+  State<ChatPage> createState() => _ChatPageState();
+}
+
+class _ChatPageState extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,13 +22,49 @@ class ChatPage extends StatelessWidget {
         centerTitle: true,
         elevation: 0,
         title: Text(
-          'Dr. Mohamad Zulistiyan Sp.KK',
+          'Dr. ${widget.responseKonsultasi.dokter!.namaDokter} Sp.KK',
           style: GoogleFonts.poppins(
             fontSize: 16,
             color: Colors.black,
             fontWeight: FontWeight.w600,
           ),
         ),
+        actions: [
+          PopupMenuButton(
+            offset: const Offset(0, 50),
+            shape: const TooltipShape(),
+            onSelected: (result) {},
+            icon: const Icon(
+              Icons.more_horiz,
+              size: 30,
+              color: Colors.black,
+            ),
+            itemBuilder: (context) {
+              return [
+                PopupMenuItem(
+                  value: 0,
+                  child: Text(
+                    'Laporkan Dokter',
+                    style: GoogleFonts.poppins(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+                PopupMenuItem(
+                  value: 1,
+                  child: Text(
+                    'Selesaikan Konsultasi',
+                    style: GoogleFonts.poppins(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+              ];
+            },
+          )
+        ],
         leading: InkWell(
           onTap: () {
             Navigator.pop(context);
