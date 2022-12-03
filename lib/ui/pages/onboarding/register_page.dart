@@ -1,15 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter_application_myskin/bloc/auth/handle_api/registrasi_bloc.dart';
-import 'package:flutter_application_myskin/ui/pages/onboarding/login_page.dart';
+
+import 'package:flutter_application_myskin/bloc/pasien/handle_api/registrasi_bloc.dart';
 import 'package:flutter_application_myskin/ui/widget/custom_pop_loading.dart';
 import 'package:flutter_application_myskin/ui/widget/primary_button.dart';
 import 'package:flutter_application_myskin/ui/widget/primary_textfield.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 
 class RegisterPage extends StatefulWidget {

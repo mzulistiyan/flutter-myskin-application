@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
+import '../../../model/dokter/response_dokter.dart';
+import 'package:flutter_application_myskin/ui/pages/dokter/detail_transaksi_page.dart';
 import 'package:flutter_application_myskin/ui/widget/primary_button.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class DetailDokter extends StatelessWidget {
-  const DetailDokter({super.key});
+  Dokter dokter;
+  DetailDokter({
+    required this.dokter,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +57,7 @@ class DetailDokter extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Dr. Jennifer Sp.KK',
+                  'Dr. ${dokter.namaDokter} .KK',
                   style: GoogleFonts.poppins(
                     fontSize: 12,
                     fontWeight: FontWeight.w600,
@@ -145,11 +151,24 @@ class DetailDokter extends StatelessWidget {
         ],
       )),
       bottomNavigationBar: Container(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         height: 80,
         child: PrimaryButton(
           text: 'Lanjut Pembayaran',
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => CheckoutPage(
+                  dokter: Dokter(
+                    idDokter: dokter.idDokter,
+                    namaDokter: dokter.namaDokter,
+                    rumahSakit: dokter.rumahSakit,
+                  ),
+                ),
+              ),
+            );
+          },
         ),
       ),
     );

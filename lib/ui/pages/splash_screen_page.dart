@@ -18,7 +18,8 @@ class _SplashPageState extends State<SplashPage> {
     Timer(const Duration(seconds: 3), () async {
       final TokenHelper _tokenHelper = TokenHelper();
       String token = await _tokenHelper.getToken();
-
+      int roles = await _tokenHelper.getRoles();
+      print("INi ROLES : $roles");
       if (initScreen == 0 || initScreen == null) {
         Navigator.pushNamedAndRemoveUntil(
             context, '/get-started', (route) => false);
@@ -27,8 +28,13 @@ class _SplashPageState extends State<SplashPage> {
           Navigator.pushNamedAndRemoveUntil(
               context, '/login-page', (route) => false);
         } else if (token.isNotEmpty) {
-          Navigator.pushNamedAndRemoveUntil(
-              context, '/main-page', (route) => false);
+          if (roles == 1) {
+            Navigator.pushNamedAndRemoveUntil(
+                context, '/home-dokter-page', (route) => false);
+          } else if (roles == 0) {
+            Navigator.pushNamedAndRemoveUntil(
+                context, '/main-page', (route) => false);
+          }
         }
       }
     });

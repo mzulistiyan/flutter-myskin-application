@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_myskin/bloc/auth/handle_api/update_pasien_bloc.dart';
-import 'package:flutter_application_myskin/model/auth/response_pasien.dart';
-import 'package:flutter_application_myskin/model/auth/response_update_pasien.dart';
+import 'package:flutter_application_myskin/bloc/pasien/handle_api/update_pasien_bloc.dart';
+import 'package:flutter_application_myskin/model/auth/pasien/response_pasien.dart';
+import 'package:flutter_application_myskin/model/auth/pasien/response_update_pasien.dart';
 import 'package:flutter_application_myskin/ui/widget/bottom_navigation.dart';
 import 'package:flutter_application_myskin/ui/widget/custom_pop_loading.dart';
 import 'package:flutter_application_myskin/ui/widget/primary_button.dart';

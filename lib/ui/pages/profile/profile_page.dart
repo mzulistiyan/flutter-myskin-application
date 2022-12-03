@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_myskin/bloc/auth/handle_api/logout_bloc.dart';
-import 'package:flutter_application_myskin/bloc/auth/handle_api/pasien_bloc.dart';
+
+import 'package:flutter_application_myskin/bloc/pasien/handle_api/pasien_bloc.dart';
+import 'package:flutter_application_myskin/bloc/dokter/event/logout_event.dart';
+import 'package:flutter_application_myskin/bloc/dokter/handle_api/logout_bloc.dart';
 import 'package:flutter_application_myskin/ui/pages/onboarding/login_page.dart';
 import 'package:flutter_application_myskin/ui/pages/profile/edit_profile_page.dart';
 import 'package:flutter_application_myskin/ui/widget/custom_shimmer_profile.dart';
@@ -16,7 +18,7 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  final LogoutBloc _logoutBloc = LogoutBloc();
+  final LogoutDokterBloc _logoutBloc = LogoutDokterBloc();
   final PasienBloc _pasienBloc = PasienBloc();
 
   @override
@@ -298,7 +300,7 @@ class _ProfilePageState extends State<ProfilePage> {
     Widget continueButton = TextButton(
       child: const Text("Ya"),
       onPressed: () async {
-        _logoutBloc.add(GetLogout());
+        _logoutBloc.add(DokterLogout());
         await Future.delayed(const Duration(seconds: 1), () {
           Navigator.of(context, rootNavigator: true).pop();
           _logout();

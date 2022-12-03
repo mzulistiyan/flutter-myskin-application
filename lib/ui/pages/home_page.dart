@@ -1,7 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_myskin/bloc/auth/handle_api/pasien_bloc.dart';
-import 'package:flutter_application_myskin/bloc/main/bloc/dokter_bloc.dart';
+import 'package:flutter_application_myskin/bloc/pasien/handle_api/pasien_bloc.dart';
+import 'package:flutter_application_myskin/bloc/dokter/handle_api/dokter_bloc.dart';
 import 'package:flutter_application_myskin/ui/widget/custom_shimmer_home.dart';
 import 'package:flutter_application_myskin/ui/widget/primary_button.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -248,7 +248,7 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     BlocConsumer<DokterBloc, DokterState>(
@@ -364,7 +364,7 @@ class _HomePageState extends State<HomePage> {
                                 },
                               ));
                         }
-                        return SizedBox();
+                        return const SizedBox();
                       },
                     )
                   ],
@@ -385,7 +385,7 @@ class _HomePageState extends State<HomePage> {
                   },
                 ));
           }
-          return SizedBox();
+          return const SizedBox();
         },
       ),
     );

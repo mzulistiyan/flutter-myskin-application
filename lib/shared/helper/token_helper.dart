@@ -16,6 +16,12 @@ class TokenHelper {
     prefs.setString('token', token);
   }
 
+  void saveRole(int roles) async {
+    print('role is Dokter');
+    SharedPreferences role = await SharedPreferences.getInstance();
+    role.setInt('role', roles);
+  }
+
   //proses ambil token
   Future<String> getToken() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -26,6 +32,16 @@ class TokenHelper {
       return result;
     } else {
       return '';
+    }
+  }
+
+  Future<int> getRoles() async {
+    SharedPreferences role = await SharedPreferences.getInstance();
+    int? roles = role.getInt('role');
+    if (roles != null) {
+      return roles;
+    } else {
+      return 3;
     }
   }
 }

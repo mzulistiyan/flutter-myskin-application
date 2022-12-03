@@ -127,6 +127,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
               itemCount: imgList.length,
               options: CarouselOptions(
                 initialPage: 0,
+                enableInfiniteScroll: false,
                 onPageChanged: (index, reason) {
                   setState(() {
                     activeIndex = index;

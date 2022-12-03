@@ -1,10 +1,3 @@
-import 'dart:convert';
-
-ResponseDokter responseDokterFromJson(String str) =>
-    ResponseDokter.fromJson(json.decode(str));
-
-String responseDokterToJson(ResponseDokter data) => json.encode(data.toJson());
-
 class ResponseDokter {
   Meta? meta;
   Data? data;
@@ -18,8 +11,8 @@ class ResponseDokter {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.meta != null) {
-      data['meta'] = this.meta!.toJson();
+    if (meta != null) {
+      data['meta'] = meta!.toJson();
     }
     if (this.data != null) {
       data['data'] = this.data!.toJson();
@@ -43,9 +36,9 @@ class Meta {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['code'] = this.code;
-    data['status'] = this.status;
-    data['message'] = this.message;
+    data['code'] = code;
+    data['status'] = status;
+    data['message'] = message;
     return data;
   }
 }
@@ -68,50 +61,43 @@ class Data {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['token_type'] = this.tokenType;
-    if (this.dokter != null) {
-      data['dokter'] = this.dokter!.map((v) => v.toJson()).toList();
+    data['token_type'] = tokenType;
+    if (dokter != null) {
+      data['dokter'] = dokter!.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
 class Dokter {
-  String? id;
+  int? idDokter;
   String? namaDokter;
   String? tanggalLahir;
   String? email;
   String? jenisKelamin;
   String? telp;
   String? rumahSakit;
-  String? noSTR;
-  String? noSIP;
+  int? noSTR;
+  int? noSIP;
   String? nIK;
   String? password;
-  Null? rememberToken;
-  Null? emailVerifiedAt;
-  String? createdAt;
-  String? updatedAt;
 
-  Dokter(
-      {this.id,
-      this.namaDokter,
-      this.tanggalLahir,
-      this.email,
-      this.jenisKelamin,
-      this.telp,
-      this.rumahSakit,
-      this.noSTR,
-      this.noSIP,
-      this.nIK,
-      this.password,
-      this.rememberToken,
-      this.emailVerifiedAt,
-      this.createdAt,
-      this.updatedAt});
+  Dokter({
+    this.idDokter,
+    this.namaDokter,
+    this.tanggalLahir,
+    this.email,
+    this.jenisKelamin,
+    this.telp,
+    this.rumahSakit,
+    this.noSTR,
+    this.noSIP,
+    this.nIK,
+    this.password,
+  });
 
   Dokter.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
+    idDokter = json['id_dokter'];
     namaDokter = json['nama_dokter'];
     tanggalLahir = json['tanggal_lahir'];
     email = json['email'];
@@ -122,29 +108,22 @@ class Dokter {
     noSIP = json['no_SIP'];
     nIK = json['NIK'];
     password = json['password'];
-    rememberToken = json['remember_token'];
-    emailVerifiedAt = json['email_verified_at'];
-    createdAt = json['created_at'];
-    updatedAt = json['updated_at'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['nama_dokter'] = this.namaDokter;
-    data['tanggal_lahir'] = this.tanggalLahir;
-    data['email'] = this.email;
-    data['jenis_kelamin'] = this.jenisKelamin;
-    data['telp'] = this.telp;
-    data['rumah_sakit'] = this.rumahSakit;
-    data['no_STR'] = this.noSTR;
-    data['no_SIP'] = this.noSIP;
-    data['NIK'] = this.nIK;
-    data['password'] = this.password;
-    data['remember_token'] = this.rememberToken;
-    data['email_verified_at'] = this.emailVerifiedAt;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
+    data['id_dokter'] = idDokter;
+    data['nama_dokter'] = namaDokter;
+    data['tanggal_lahir'] = tanggalLahir;
+    data['email'] = email;
+    data['jenis_kelamin'] = jenisKelamin;
+    data['telp'] = telp;
+    data['rumah_sakit'] = rumahSakit;
+    data['no_STR'] = noSTR;
+    data['no_SIP'] = noSIP;
+    data['NIK'] = nIK;
+    data['password'] = password;
+
     return data;
   }
 }

@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_myskin/bloc/auth/handle_api/logout_bloc.dart';
-import 'package:flutter_application_myskin/bloc/auth/handle_api/pasien_bloc.dart';
-import 'package:flutter_application_myskin/bloc/auth/handle_api/registrasi_bloc.dart';
-import 'package:flutter_application_myskin/bloc/auth/handle_api/update_pasien_bloc.dart';
-import 'package:flutter_application_myskin/bloc/main/bloc/dokter_bloc.dart';
+import 'package:flutter_application_myskin/bloc/dokter/bloc/update_status_konsultasi_bloc.dart';
+import 'package:flutter_application_myskin/bloc/dokter/handle_api/consults_dokter_bloc.dart';
+import 'package:flutter_application_myskin/bloc/pasien/handle_api/checkout_bloc.dart';
+import 'package:flutter_application_myskin/bloc/pasien/handle_api/consults_pasien_bloc.dart';
+import 'package:flutter_application_myskin/bloc/pasien/handle_api/pasien_bloc.dart';
+import 'package:flutter_application_myskin/bloc/pasien/handle_api/registrasi_bloc.dart';
+import 'package:flutter_application_myskin/bloc/pasien/handle_api/update_pasien_bloc.dart';
+import 'package:flutter_application_myskin/bloc/dokter/handle_api/dokter_bloc.dart';
+import 'package:flutter_application_myskin/bloc/dokter/handle_api/login_dokter_bloc.dart';
+import 'package:flutter_application_myskin/bloc/dokter/handle_api/logout_bloc.dart';
+import 'package:flutter_application_myskin/bloc/dokter/handle_api/profile_dokter_bloc.dart';
 import 'package:flutter_application_myskin/ui/pages/dokter/dokter_page.dart';
+import 'package:flutter_application_myskin/ui/pages/home_dokter_page.dart';
 import 'package:flutter_application_myskin/ui/pages/home_page.dart';
 import 'package:flutter_application_myskin/ui/pages/konsultasi/konsultasi_page.dart';
+import 'package:flutter_application_myskin/ui/pages/onboarding/login_dokter_page.dart';
 import 'package:flutter_application_myskin/ui/pages/onboarding/login_page.dart';
 import 'package:flutter_application_myskin/ui/pages/onboarding/onboarding_page.dart';
 import 'package:flutter_application_myskin/ui/pages/onboarding/register_page.dart';
@@ -21,7 +29,8 @@ import 'package:flutter_application_myskin/ui/widget/bottom_navigation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'bloc/auth/handle_api/login_bloc.dart';
+import 'bloc/pasien/handle_api/login_bloc.dart';
+import 'bloc/pasien/handle_api/logout_bloc.dart';
 
 int? initScreen;
 Future<void> main() async {
@@ -42,11 +51,18 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => LoginBloc()),
+        BlocProvider(create: (_) => LoginDokterBloc()),
         BlocProvider(create: (_) => LogoutBloc()),
+        BlocProvider(create: (_) => LogoutDokterBloc()),
         BlocProvider(create: (_) => RegistrasiBloc()),
         BlocProvider(create: (_) => PasienBloc()),
         BlocProvider(create: (_) => UpdatePasienBloc()),
         BlocProvider(create: (_) => DokterBloc()),
+        BlocProvider(create: (_) => ProfileDokterBloc()),
+        BlocProvider(create: (_) => CheckoutBloc()),
+        BlocProvider(create: (_) => ConsultsPasienBloc()),
+        BlocProvider(create: (_) => ConsultsDokterBloc()),
+        BlocProvider(create: (_) => UpdateStatusKonsultasiBloc()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -58,12 +74,14 @@ class MyApp extends StatelessWidget {
           '/register-page': (context) => const RegisterPage(),
           '/lupa-password-page': (context) => const LupaPasswordPage(),
           '/home-page': (context) => const HomePage(),
+          '/home-dokter-page': (context) => const HomeDokterPage(),
           '/dokter-page': (context) => const DokterPage(),
           '/ganti-kata-sandi-page': (context) => const GantiPasswordPage(),
           '/term-condition-page': (context) => const TermAndConditionPage(),
           '/tes-kesehatan-page': (context) => const TesKesehatanKulitPage(),
           '/transaksi-page': (context) => const TransaksiPage(),
           '/konsultasi-page': (context) => const KonsultasiPage(),
+          '/login-dokter-page': (context) => const LoginDokterPage(),
           '/hasil-sementara-page': (context) =>
               const HasilDiagnosaSementaraPage(),
         },

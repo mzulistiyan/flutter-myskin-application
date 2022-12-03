@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_application_myskin/bloc/pasien/handle_api/transaksi_bloc.dart';
+import 'package:flutter_application_myskin/model/auth/pasien/response_transaksi.dart';
+import 'package:flutter_application_myskin/ui/pages/dokter/pembayaran_page.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class TransaksiPage extends StatefulWidget {
@@ -15,6 +19,18 @@ class _TransaksiPageState extends State<TransaksiPage> {
   bool selesai = false;
   bool batal = false;
   bool varl = false;
+
+  final TransaksiBloc _transaksiBloc = TransaksiBloc();
+
+  List<DataTransaksi> _listDataUser = [];
+  List<DataTransaksi> _listResult = [];
+  List<String> _filter = [];
+  @override
+  void initState() {
+    super.initState();
+    _transaksiBloc.add(GetTransaksi());
+  }
+
   @override
   Widget build(BuildContext context) {
     Widget filterTab(bool cek, String name, int jml) {
@@ -51,7 +67,7 @@ class _TransaksiPageState extends State<TransaksiPage> {
       );
     }
 
-    Widget cardPending() {
+    Widget cardPending(List<DataTransaksi> transaksi, int index) {
       return Container(
         padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
         decoration: BoxDecoration(
@@ -74,7 +90,7 @@ class _TransaksiPageState extends State<TransaksiPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Dr. Jennifer Sp.KK',
+                      'Dr. ${transaksi[index].dokter!.namaDokter!} Sp.KK',
                       style: GoogleFonts.poppins(
                         fontSize: 12,
                         fontWeight: FontWeight.w500,
@@ -108,7 +124,7 @@ class _TransaksiPageState extends State<TransaksiPage> {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text(
-                  'Rp 120.000.00',
+                  transaksi[index].totalBayar.toString(),
                   style: GoogleFonts.poppins(
                     fontSize: 12,
                     fontWeight: FontWeight.w500,
@@ -118,7 +134,7 @@ class _TransaksiPageState extends State<TransaksiPage> {
                   height: 15,
                 ),
                 Text(
-                  'Pending',
+                  transaksi[index].statusBayar!,
                   style: GoogleFonts.poppins(
                     fontSize: 12,
                     color: const Color(0xffEE7814),
@@ -318,7 +334,7 @@ class _TransaksiPageState extends State<TransaksiPage> {
           ),
         ),
       ),
-      body: ListView(
+      body: Column(
         children: [
           Padding(
             padding: const EdgeInsets.only(top: 16, left: 16, bottom: 10),
@@ -331,7 +347,17 @@ class _TransaksiPageState extends State<TransaksiPage> {
                       setState(() {
                         if (!pending) {
                           pending = true;
+                          _filter.add("PENDING");
+                          print(_filter);
+                          _listResult = _listDataUser
+                              .where(
+                                  (element) => element.statusBayar! == _filter)
+                              .toList();
+                          _transaksiBloc.add(GetTransaksi());
+
+                          print(_listDataUser);
                         } else {
+                          _transaksiBloc.add(GetTransaksi());
                           pending = false;
                         }
                       });
@@ -343,7 +369,15 @@ class _TransaksiPageState extends State<TransaksiPage> {
                       setState(() {
                         if (!selesai) {
                           selesai = true;
+                          _listResult = _listDataUser
+                              .where(
+                                (element) =>
+                                    element.statusBayar!.contains("SUCCESS"),
+                              )
+                              .toList();
+                          _transaksiBloc.add(GetTransaksi());
                         } else {
+                          _transaksiBloc.add(GetTransaksi());
                           selesai = false;
                         }
                       });
@@ -360,7 +394,7 @@ class _TransaksiPageState extends State<TransaksiPage> {
                         }
                       });
                     },
-                    child: filterTab(batal, "Batal ", 20),
+                    child: filterTab(batal, "Menunggu Dokter ", 20),
                   ),
                   GestureDetector(
                     onTap: () {
@@ -402,20 +436,58 @@ class _TransaksiPageState extends State<TransaksiPage> {
               ],
             ),
           ),
-          if (!pending && !selesai && !batal)
-            Expanded(
-              child: ListView(
-                shrinkWrap: true,
-                children: [
-                  cardPending(),
-                  cardBerhasil(),
-                  cardBatal(),
-                ],
-              ),
-            ),
-          if (pending == true) cardPending(),
-          if (selesai == true) cardBerhasil(),
-          if (batal == true) cardBatal(),
+
+          BlocConsumer<TransaksiBloc, TransaksiState>(
+            bloc: _transaksiBloc,
+            listener: (context, state) {
+              print('state is $state');
+              if (state is TransaksiSuccess) {
+                if (!pending) {
+                  _listDataUser = state.responseTransaksi.data ?? [];
+                } else {
+                  _listDataUser = _listResult;
+                }
+              }
+            },
+            builder: (context, state) {
+              if (state is TransaksiLoading) {
+              } else if (state is TransaksiSuccess) {
+                return Expanded(
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: _listDataUser.length,
+                    itemBuilder: (context, index) => GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => WebViewExample(
+                              url: _listDataUser[index].paymentUrl,
+                            ),
+                          ),
+                        );
+                      },
+                      child: cardPending(
+                        _listDataUser,
+                        index,
+                      ),
+                    ),
+                  ),
+                );
+              } else if (state is TransaksiError) {}
+              return SizedBox();
+            },
+          ),
+          ListView(
+            shrinkWrap: true,
+            children: [
+              // cardBerhasil(),
+              // cardBatal(),
+            ],
+          ),
+          // if (pending == true) cardPending(),
+          // if (selesai == true) cardBerhasil(),
+          // if (batal == true) cardBatal(),
         ],
       ),
     );

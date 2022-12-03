@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_application_myskin/bloc/main/bloc/dokter_bloc.dart';
+import 'package:flutter_application_myskin/bloc/dokter/handle_api/dokter_bloc.dart';
 import 'package:flutter_application_myskin/ui/pages/dokter/detail_dokter_page.dart';
 import 'package:flutter_application_myskin/ui/widget/primary_button.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -150,7 +150,13 @@ class _DokterPageState extends State<DokterPage> {
               onTap: () => Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const DetailDokter(),
+                  builder: (context) => DetailDokter(
+                    dokter: Dokter(
+                      idDokter: _listDataUser[index].idDokter,
+                      namaDokter: _listDataUser[index].namaDokter,
+                      rumahSakit: _listDataUser[index].rumahSakit,
+                    ),
+                  ),
                 ),
               ),
               child: Container(

@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_myskin/bloc/auth/event/login_event.dart';
-import 'package:flutter_application_myskin/bloc/auth/handle_api/login_bloc.dart';
-import 'package:flutter_application_myskin/model/auth/response_login.dart';
+import 'package:flutter_application_myskin/bloc/pasien/event/login_event.dart';
+import 'package:flutter_application_myskin/bloc/pasien/handle_api/login_bloc.dart';
+import 'package:flutter_application_myskin/model/auth/pasien/response_login.dart';
 import 'package:flutter_application_myskin/shared/helper/token_helper.dart';
+import 'package:flutter_application_myskin/ui/pages/onboarding/login_dokter_page.dart';
 import 'package:flutter_application_myskin/ui/widget/primary_button.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../bloc/auth/state/login_state.dart';
+import '../../../bloc/pasien/state/login_state.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -18,8 +19,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final emailController = TextEditingController(text: '');
-  final passwordController = TextEditingController(text: '');
+  final emailController = TextEditingController(text: 'pasien5@gmail.com');
+  final passwordController = TextEditingController(text: '11223344');
   final LoginBloc _loginBloc = LoginBloc();
   final TokenHelper _tokenHelper = TokenHelper();
 
@@ -42,104 +43,6 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
             ),
-            // Padding(
-            //   padding: const EdgeInsets.symmetric(horizontal: 80),
-            //   child: Row(
-            //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //     children: [
-            //       Container(
-            //         width: 40,
-            //         height: 40,
-            //         decoration: BoxDecoration(
-            //           color: const Color(0xffEFEFEF),
-            //           shape: BoxShape.circle,
-            //           boxShadow: [
-            //             BoxShadow(
-            //               offset: const Offset(0, 1),
-            //               blurRadius: 5,
-            //               color: Colors.black.withOpacity(0.3),
-            //             ),
-            //           ],
-            //         ),
-            //         child: Center(
-            //           child: Image.asset(
-            //             'assets/icons/icon_WA.png',
-            //             width: 15,
-            //             height: 18,
-            //           ),
-            //         ),
-            //       ),
-            //       Container(
-            //         width: 40,
-            //         height: 40,
-            //         decoration: BoxDecoration(
-            //           color: const Color(0xffEFEFEF),
-            //           shape: BoxShape.circle,
-            //           boxShadow: [
-            //             BoxShadow(
-            //               offset: const Offset(0, 1),
-            //               blurRadius: 5,
-            //               color: Colors.black.withOpacity(0.3),
-            //             ),
-            //           ],
-            //         ),
-            //         child: Center(
-            //           child: Image.asset(
-            //             'assets/icons/icon_google.png',
-            //             width: 15,
-            //             height: 25,
-            //           ),
-            //         ),
-            //       ),
-            //       Container(
-            //         width: 40,
-            //         height: 40,
-            //         decoration: BoxDecoration(
-            //           color: const Color(0xffEFEFEF),
-            //           shape: BoxShape.circle,
-            //           boxShadow: [
-            //             BoxShadow(
-            //               offset: const Offset(0, 1),
-            //               blurRadius: 5,
-            //               color: Colors.black.withOpacity(0.3),
-            //             ),
-            //           ],
-            //         ),
-            //         child: Center(
-            //           child: Image.asset(
-            //             'assets/icons/icon_facebook.png',
-            //             width: 10,
-            //             height: 18,
-            //           ),
-            //         ),
-            //       )
-            //     ],
-            //   ),
-            // ),
-
-            // Center(
-            //   child: Column(
-            //     children: [
-            //       Text(
-            //         'Login with',
-            //         style: GoogleFonts.poppins(
-            //           fontSize: 10,
-            //           fontWeight: FontWeight.w400,
-            //         ),
-            //       ),
-            //       const SizedBox(
-            //         height: 15,
-            //       ),
-            //       Text(
-            //         'or',
-            //         style: GoogleFonts.poppins(
-            //           fontSize: 10,
-            //           fontWeight: FontWeight.w400,
-            //         ),
-            //       ),
-            //     ],
-            //   ),
-            // ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -269,6 +172,7 @@ class _LoginPageState extends State<LoginPage> {
                 print('state is: $state');
                 if (state is LoginSuccess) {
                   print(responseLoginToJson(state.responseLogin));
+                  _tokenHelper.saveRole(0);
                   _tokenHelper
                       .saveToken(state.responseLogin.data!.accessToken!);
                   Future.delayed(const Duration(seconds: 1), () {
@@ -328,13 +232,28 @@ class _LoginPageState extends State<LoginPage> {
             const SizedBox(
               height: 16,
             ),
-            Center(
-              child: Text(
-                'Masuk sebagai Dokter',
-                style: GoogleFonts.poppins(
-                  fontWeight: FontWeight.w500,
-                  fontSize: 12,
-                ),
+            GestureDetector(
+              onTap: () => Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => LoginDokterPage())),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Masuk sebagai ',
+                    style: GoogleFonts.poppins(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 12,
+                    ),
+                  ),
+                  Text(
+                    'Dokter',
+                    style: GoogleFonts.poppins(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 12,
+                      color: const Color(0xffEE7814),
+                    ),
+                  ),
+                ],
               ),
             ),
             const SizedBox(
@@ -350,7 +269,7 @@ class _LoginPageState extends State<LoginPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'Don’t have account? ',
+              'Belum punya akun? ',
               style: GoogleFonts.poppins(
                 fontWeight: FontWeight.w500,
                 fontSize: 12,
@@ -359,7 +278,7 @@ class _LoginPageState extends State<LoginPage> {
             GestureDetector(
               onTap: () => Navigator.pushNamed(context, '/register-page'),
               child: Text(
-                'Sign Up here',
+                'Daftar disini',
                 style: GoogleFonts.poppins(
                   fontWeight: FontWeight.w600,
                   fontSize: 12,

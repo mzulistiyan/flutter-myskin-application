@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.flutter_application_myskin">
+    <uses-permission android:name="android.permission.INTERNET" />
    <application
         android:label="MySkin"
         android:name="${applicationName}"
