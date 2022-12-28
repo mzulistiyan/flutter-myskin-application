@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_myskin/ui/pages/artikel/artikel_page.dart';
 import 'package:flutter_application_myskin/ui/pages/dokter/dokter_page.dart';
-import 'package:flutter_application_myskin/ui/pages/konsultasi_page.dart';
+import 'package:flutter_application_myskin/ui/pages/hasil_test_page.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../pages/home_page.dart';
@@ -21,7 +21,7 @@ class _MainPageState extends State<MainPage> {
 
   final List<Widget> _pageList = [
     const HomePage(),
-    const RekamMedisPage(),
+    HasilSurveyPage(),
     const ArikelPage(),
     const ProfilePage(),
   ];

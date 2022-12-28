@@ -2,11 +2,11 @@ import 'dart:convert';
 import 'dart:math';
 
 import 'package:flutter_application_myskin/shared/helper/token_helper.dart';
+import 'package:flutter_application_myskin/shared/url_helper.dart';
 import 'package:http/http.dart' as http;
 
 class APIServiceDokter {
-  String baseUrl = 'https://4962-103-157-48-101.ap.ngrok.io';
-
+  String baseUrl = UrlStaging.url;
   Future<http.Response> loginDokter(String email, String password) async {
     final response = await http.post(Uri.parse('$baseUrl/api/login/dokter'),
         headers: {"Content-Type": "application/json", "Accept": "*/*"},
@@ -140,6 +140,31 @@ class APIServiceDokter {
             body: jsonEncode({
               "status_konsultasi": statusKonsultasi,
             }));
+    print(response.body);
+    try {
+      return response;
+    } catch (e) {
+      return response;
+    }
+  }
+
+  Future<http.Response> updateDiagnosaLanjut(
+      String diagnosaLanjut, int id) async {
+    final TokenHelper _tokenHelper = TokenHelper();
+    String token = await _tokenHelper.getToken();
+    final response = await http.post(
+      Uri.parse('$baseUrl/api/consults/update/$id'),
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "*/*",
+        "Authorization": "Bearer $token"
+      },
+      body: jsonEncode(
+        {
+          "daignosa_lanjut": diagnosaLanjut,
+        },
+      ),
+    );
     print(response.body);
     try {
       return response;

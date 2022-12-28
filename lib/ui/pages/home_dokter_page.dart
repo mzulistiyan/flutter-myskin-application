@@ -1,18 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_myskin/bloc/dokter/bloc/update_status_konsultasi_bloc.dart';
+import 'package:flutter_application_myskin/bloc/pasien/handle_api/update_status_konsultasi_bloc.dart';
 import 'package:flutter_application_myskin/bloc/dokter/event/logout_event.dart';
 import 'package:flutter_application_myskin/bloc/dokter/handle_api/consults_dokter_bloc.dart';
 import 'package:flutter_application_myskin/bloc/dokter/handle_api/logout_bloc.dart';
 import 'package:flutter_application_myskin/bloc/dokter/handle_api/profile_dokter_bloc.dart';
-import 'package:flutter_application_myskin/model/dokter/response_status_konsultasi.dart';
+import 'package:flutter_application_myskin/ui/pages/konsultasi/chat_page.dart';
 import 'package:flutter_application_myskin/ui/pages/onboarding/login_page.dart';
 import 'package:flutter_application_myskin/ui/widget/CustomTooltipShape.dart';
 import 'package:flutter_application_myskin/ui/widget/custom_pop_loading.dart';
 import 'package:flutter_application_myskin/ui/widget/custom_shimmer_profile.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -467,7 +466,19 @@ class _HomeDokterPageState extends State<HomeDokterPage> {
                                                 .statusKonsultasi ==
                                             "BERKONSULTASI")
                                           IconButton(
-                                            onPressed: () {},
+                                            onPressed: () {
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      ChatPage(
+                                                    responseKonsultasi:
+                                                        stateList.responseDokter
+                                                            .data![index],
+                                                  ),
+                                                ),
+                                              );
+                                            },
                                             icon: const Icon(
                                               Icons.chat,
                                               color: Color(0xffEE7814),

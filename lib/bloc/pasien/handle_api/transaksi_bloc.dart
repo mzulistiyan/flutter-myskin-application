@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_application_myskin/model/auth/pasien/response_transaksi.dart';
+import 'package:flutter_application_myskin/model/response_konsultasi.dart';
 import 'package:flutter_application_myskin/service/pasien/service_pasien.dart';
 
 part '../event/transaksi_event.dart';

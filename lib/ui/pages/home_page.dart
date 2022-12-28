@@ -2,6 +2,8 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_myskin/bloc/pasien/handle_api/pasien_bloc.dart';
 import 'package:flutter_application_myskin/bloc/dokter/handle_api/dokter_bloc.dart';
+import 'package:flutter_application_myskin/ui/pages/hasil_test_page.dart';
+import 'package:flutter_application_myskin/ui/pages/rekam_medis_page.dart';
 import 'package:flutter_application_myskin/ui/widget/custom_shimmer_home.dart';
 import 'package:flutter_application_myskin/ui/widget/primary_button.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -211,8 +213,18 @@ class _HomePageState extends State<HomePage> {
                           child: contentMenu(
                               'assets/icons/icon_konsultasi.svg', 'Konsutasi'),
                         ),
-                        contentMenu(
-                            'assets/icons/icon_rekam.svg', 'Rekam Medis'),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => RekamMedisPage(),
+                              ),
+                            );
+                          },
+                          child: contentMenu(
+                              'assets/icons/icon_rekam.svg', 'Rekam Medis'),
+                        ),
                         GestureDetector(
                             onTap: () =>
                                 Navigator.pushNamed(context, '/transaksi-page'),

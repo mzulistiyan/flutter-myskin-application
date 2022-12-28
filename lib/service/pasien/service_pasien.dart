@@ -1,11 +1,14 @@
 import 'dart:convert';
 import 'dart:math';
 
+import 'package:flutter_application_myskin/bloc/pasien/bloc/get_test_kesehatan_bloc.dart';
+import 'package:flutter_application_myskin/bloc/pasien/bloc/tes_kesehatan_kulit_bloc.dart';
 import 'package:flutter_application_myskin/shared/helper/token_helper.dart';
+import 'package:flutter_application_myskin/shared/url_helper.dart';
 import 'package:http/http.dart' as http;
 
 class APIService {
-  String baseUrl = 'https://4962-103-157-48-101.ap.ngrok.io';
+  String baseUrl = UrlStaging.url;
 
   Future<http.Response> loginDokter(String email, String password) async {
     final response = await http.post(Uri.parse('$baseUrl/api/login/dokter'),
@@ -81,6 +84,26 @@ class APIService {
 
     final response = await http.get(
       Uri.parse('$baseUrl/api/get/all/dokter'),
+      headers: {
+        "Content-Type": "application/json;charset=UTF-8",
+        "Authorization": "Bearer $token",
+        "Charset": "utf-8"
+      },
+    );
+    print(token);
+    try {
+      return response;
+    } catch (e) {
+      return response;
+    }
+  }
+
+  Future<http.Response> getTestKesehatan() async {
+    final TokenHelper _tokenHelper = TokenHelper();
+    String token = await _tokenHelper.getToken();
+
+    final response = await http.get(
+      Uri.parse('$baseUrl/api/get/teskesehatan'),
       headers: {
         "Content-Type": "application/json;charset=UTF-8",
         "Authorization": "Bearer $token",
@@ -174,6 +197,28 @@ class APIService {
           "jenis_kelamin": jenisKelamin,
           "tanggal_lahir": tanggalLahir,
           "alamat": alamat,
+        }));
+    print(response.body);
+    try {
+      return response;
+    } catch (e) {
+      return response;
+    }
+  }
+
+  Future<http.Response> tesKesehatanKulit(
+    String diagnosaSementara,
+  ) async {
+    final TokenHelper _tokenHelper = TokenHelper();
+    String token = await _tokenHelper.getToken();
+    final response = await http.post(Uri.parse('$baseUrl/api/teskesehatan'),
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "*/*",
+          "Authorization": "Bearer $token"
+        },
+        body: jsonEncode({
+          "diagnosa_sementara": diagnosaSementara,
         }));
     print(response.body);
     try {

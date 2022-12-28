@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_myskin/bloc/dokter/bloc/update_status_konsultasi_bloc.dart';
+import 'package:flutter_application_myskin/bloc/pasien/handle_api/update_status_konsultasi_bloc.dart';
+import 'package:flutter_application_myskin/shared/helper/token_helper.dart';
 import 'package:flutter_application_myskin/ui/widget/CustomTooltipShape.dart';
 import 'package:flutter_application_myskin/model/response_konsultasi.dart';
 import 'package:flutter_application_myskin/ui/widget/custom_pop_loading.dart';
 import 'package:flutter_application_myskin/ui/widget/custom_rating.dart';
+import 'package:flutter_application_myskin/ui/widget/primary_button.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 
@@ -37,7 +40,7 @@ class _ChatPageState extends State<ChatPage> {
         ),
         actions: [
           widget.responseKonsultasi.statusKonsultasi == "SELESAI"
-              ? SizedBox()
+              ? const SizedBox()
               : BlocConsumer<UpdateStatusKonsultasiBloc,
                   UpdateStatusKonsultasiState>(
                   bloc: _updateStatusKonsultasiBloc,
@@ -67,13 +70,19 @@ class _ChatPageState extends State<ChatPage> {
                     return PopupMenuButton(
                       offset: const Offset(0, 50),
                       shape: const TooltipShape(),
-                      onSelected: (result) {
+                      onSelected: (result) async {
                         if (result == 1) {
-                          _updateStatusKonsultasiBloc
-                              .add(UpdateStatusKonsultasiPost(
-                            statusKonsultasi: 'SELESAI',
-                            id: widget.responseKonsultasi.id!,
-                          ));
+                          final TokenHelper _tokenHelper = TokenHelper();
+                          int roles = await _tokenHelper.getRoles();
+                          if (roles == 0) {
+                            _updateStatusKonsultasiBloc
+                                .add(UpdateStatusKonsultasiPost(
+                              statusKonsultasi: 'SELESAI',
+                              id: widget.responseKonsultasi.id!,
+                            ));
+                          } else {
+                            _showMyDialog(context);
+                          }
                         }
                       },
                       icon: const Icon(
@@ -199,7 +208,7 @@ class _ChatPageState extends State<ChatPage> {
                     children: [
                       IconButton(
                         padding: EdgeInsets.zero,
-                        constraints: BoxConstraints(),
+                        constraints: const BoxConstraints(),
                         onPressed: () {},
                         icon: const Icon(
                           Icons.add,
@@ -248,4 +257,60 @@ class _ChatPageState extends State<ChatPage> {
       ),
     );
   }
+}
+
+Future<void> _showMyDialog(BuildContext context) async {
+  return showDialog<void>(
+    context: context,
+    barrierDismissible: false, // user must tap button!
+    builder: (BuildContext context) {
+      return AlertDialog(
+        insetPadding: const EdgeInsets.all(24),
+        contentPadding:
+            const EdgeInsets.symmetric(vertical: 15, horizontal: 24),
+        shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(16.0))),
+        title: Text(
+          'Diagnosa Lanjut',
+          textAlign: TextAlign.center,
+          style: GoogleFonts.montserrat(
+            fontSize: 16,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        content: SingleChildScrollView(
+          child: ListBody(
+            children: [
+              TextFormField(
+                decoration: const InputDecoration(
+                  hintText: "Masukkan Diagnosa Lanjutan",
+                ),
+              )
+            ],
+          ),
+        ),
+        actions: <Widget>[
+          Container(
+            padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+            child: PrimaryButton(
+              onPressed: () async {
+                Navigator.pop(context);
+                Future.delayed(
+                  const Duration(seconds: 1),
+                  () {
+                    Fluttertoast.showToast(
+                      toastLength: Toast.LENGTH_SHORT,
+                      msg: "Berhasil Delete Criteria",
+                      backgroundColor: Colors.white,
+                    );
+                  },
+                );
+              },
+              text: "Tambah Diagnosis Lanjutan",
+            ),
+          )
+        ],
+      );
+    },
+  );
 }

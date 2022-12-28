@@ -1,4 +1,4 @@
-part of 'update_status_konsultasi_bloc.dart';
+part of '../../pasien/handle_api/update_status_konsultasi_bloc.dart';
 
 abstract class UpdateStatusKonsultasiState extends Equatable {
   const UpdateStatusKonsultasiState();

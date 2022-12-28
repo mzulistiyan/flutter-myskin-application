@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_myskin/bloc/dokter/bloc/update_status_konsultasi_bloc.dart';
+import 'package:flutter_application_myskin/bloc/pasien/bloc/get_test_kesehatan_bloc.dart';
+import 'package:flutter_application_myskin/bloc/pasien/bloc/tes_kesehatan_kulit_bloc.dart';
+import 'package:flutter_application_myskin/bloc/pasien/handle_api/update_status_konsultasi_bloc.dart';
 import 'package:flutter_application_myskin/bloc/dokter/handle_api/consults_dokter_bloc.dart';
 import 'package:flutter_application_myskin/bloc/pasien/handle_api/checkout_bloc.dart';
 import 'package:flutter_application_myskin/bloc/pasien/handle_api/consults_pasien_bloc.dart';
@@ -63,6 +65,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => ConsultsPasienBloc()),
         BlocProvider(create: (_) => ConsultsDokterBloc()),
         BlocProvider(create: (_) => UpdateStatusKonsultasiBloc()),
+        BlocProvider(create: (_) => TesKesehatanKulitBloc()),
+        BlocProvider(create: (_) => GetTestKesehatanBloc()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

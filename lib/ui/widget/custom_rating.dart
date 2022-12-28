@@ -8,7 +8,6 @@ class RattingPopUp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      insetPadding: const EdgeInsets.symmetric(horizontal: 10),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(25),
       ),
@@ -47,8 +46,8 @@ class RattingPopUp extends StatelessWidget {
                 allowHalfRating: true,
                 itemCount: 5,
                 itemSize: 30,
-                itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-                itemBuilder: (context, _) => Icon(
+                itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
+                itemBuilder: (context, _) => const Icon(
                   Icons.star,
                   color: Colors.amber,
                 ),
@@ -56,25 +55,30 @@ class RattingPopUp extends StatelessWidget {
                   print(rating);
                 },
               ),
-              SizedBox(
+              const SizedBox(
                 height: 16,
               ),
-              Container(
-                width: double.infinity,
-                height: 40,
-                decoration: BoxDecoration(
-                  color: const Color(0xffEE7814),
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(25),
-                    bottomRight: Radius.circular(25),
+              GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, '/main-page');
+                },
+                child: Container(
+                  width: double.infinity,
+                  height: 40,
+                  decoration: const BoxDecoration(
+                    color: Color(0xffEE7814),
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(25),
+                      bottomRight: Radius.circular(25),
+                    ),
                   ),
-                ),
-                child: Center(
-                  child: Text(
-                    'Submit',
-                    style: GoogleFonts.poppins(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w600,
+                  child: Center(
+                    child: Text(
+                      'Submit',
+                      style: GoogleFonts.poppins(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ),
                 ),

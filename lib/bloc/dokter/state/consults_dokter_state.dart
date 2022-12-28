@@ -12,11 +12,11 @@ class ConsultsDokterInitial extends ConsultsDokterState {}
 class ConsultsDokterLoading extends ConsultsDokterState {}
 
 class ConsultsDokterSuccess extends ConsultsDokterState {
-  final ResponseConsultsDokter responseDokter;
+  final ResponseConsultsPasien responseDokter;
   const ConsultsDokterSuccess(this.responseDokter);
 }
 
 class ConsultsDokterError extends ConsultsDokterState {
-  final ResponseConsultsDokter responseErrorConsultsDokter;
+  final ResponseConsultsPasien responseErrorConsultsDokter;
   const ConsultsDokterError(this.responseErrorConsultsDokter);
 }

@@ -1,4 +1,4 @@
-part of 'update_status_konsultasi_bloc.dart';
+part of '../handle_api/update_status_konsultasi_bloc.dart';
 
 abstract class UpdateStatusKonsultasiEvent extends Equatable {}
 

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_myskin/bloc/pasien/bloc/tes_kesehatan_kulit_bloc.dart';
 import 'package:flutter_application_myskin/ui/widget/primary_button.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class TesKesehatanKulitPage extends StatefulWidget {
@@ -10,6 +12,7 @@ class TesKesehatanKulitPage extends StatefulWidget {
 }
 
 class _TesKesehatanKulitPageState extends State<TesKesehatanKulitPage> {
+  final _tesKesehatanKulitBloc = TesKesehatanKulitBloc();
   int? _valueMasalah = 0;
 
   @override
@@ -192,15 +195,29 @@ class _TesKesehatanKulitPageState extends State<TesKesehatanKulitPage> {
           )
         ],
       ),
-      bottomNavigationBar: Container(
-        padding: const EdgeInsets.all(10),
-        height: 60,
-        child: PrimaryButton(
-          text: 'Selanjutnya',
-          onPressed: () {
+      bottomNavigationBar:
+          BlocConsumer<TesKesehatanKulitBloc, TesKesehatanKulitState>(
+        bloc: _tesKesehatanKulitBloc,
+        listener: (context, state) {
+          print("Debug $state");
+          if (state is TesKesehatanKulitSuccess) {
             Navigator.pushNamed(context, '/hasil-sementara-page');
-          },
-        ),
+          }
+        },
+        builder: (context, state) {
+          return Container(
+            padding: const EdgeInsets.all(10),
+            height: 60,
+            child: PrimaryButton(
+              text: 'Selesai',
+              onPressed: () {
+                _tesKesehatanKulitBloc.add(
+                  TesKesehatanKulit(diagnosaSementara: "KULIT CACAR"),
+                );
+              },
+            ),
+          );
+        },
       ),
     );
   }

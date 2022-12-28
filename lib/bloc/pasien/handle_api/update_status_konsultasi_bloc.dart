@@ -5,8 +5,8 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_application_myskin/model/dokter/response_status_konsultasi.dart';
 import 'package:flutter_application_myskin/service/dokter/service_dokter.dart';
 
-part 'update_status_konsultasi_event.dart';
-part 'update_status_konsultasi_state.dart';
+part '../event/update_status_konsultasi_event.dart';
+part '../state/update_status_konsultasi_state.dart';
 
 class UpdateStatusKonsultasiBloc
     extends Bloc<UpdateStatusKonsultasiEvent, UpdateStatusKonsultasiState> {

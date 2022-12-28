@@ -103,11 +103,16 @@ class HasilDiagnosaSementaraPage extends StatelessWidget {
             const SizedBox(
               height: 15,
             ),
-            Text(
-              'Kembali ke Menu Utama',
-              style: GoogleFonts.poppins(
-                fontSize: 12,
-                fontWeight: FontWeight.w500,
+            GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(context, '/main-page');
+              },
+              child: Text(
+                'Kembali ke Menu Utama',
+                style: GoogleFonts.poppins(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
             )
           ],
