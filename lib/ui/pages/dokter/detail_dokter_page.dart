@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../model/dokter/response_dokter.dart';
-import 'package:flutter_application_myskin/ui/pages/dokter/detail_transaksi_page.dart';
+import 'package:flutter_application_myskin/ui/pages/dokter/checkout_page.dart';
 import 'package:flutter_application_myskin/ui/widget/primary_button.dart';
 import 'package:google_fonts/google_fonts.dart';
 

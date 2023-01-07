@@ -4,6 +4,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_application_myskin/bloc/pasien/handle_api/transaksi_bloc.dart';
 import 'package:flutter_application_myskin/model/auth/pasien/response_transaksi.dart';
 import 'package:flutter_application_myskin/ui/pages/dokter/pembayaran_page.dart';
+import 'package:flutter_application_myskin/ui/widget/bottom_navigation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -89,13 +90,21 @@ class _TransaksiPageState extends State<TransaksiPage> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'Dr. ${transaksi[index].dokter!.namaDokter!} Sp.KK',
-                      style: GoogleFonts.poppins(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
+                    transaksi[index].idDokter == null
+                        ? Text(
+                            '',
+                            style: GoogleFonts.poppins(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          )
+                        : Text(
+                            'Dr. ${transaksi[index].dokter!.namaDokter!} Sp.KK',
+                            style: GoogleFonts.poppins(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
                     const SizedBox(
                       height: 4,
                     ),
@@ -326,7 +335,13 @@ class _TransaksiPageState extends State<TransaksiPage> {
         ),
         leading: InkWell(
           onTap: () {
-            Navigator.pop(context);
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (context) => MainPage(),
+              ),
+              (route) => false,
+            );
           },
           child: const Icon(
             Icons.arrow_back_ios,

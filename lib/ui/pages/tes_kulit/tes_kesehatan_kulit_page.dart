@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_myskin/bloc/pasien/bloc/tes_kesehatan_kulit_bloc.dart';
+import 'package:flutter_application_myskin/ui/pages/tes_kulit/hasil_sementara_page.dart';
 import 'package:flutter_application_myskin/ui/widget/primary_button.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -201,7 +202,14 @@ class _TesKesehatanKulitPageState extends State<TesKesehatanKulitPage> {
         listener: (context, state) {
           print("Debug $state");
           if (state is TesKesehatanKulitSuccess) {
-            Navigator.pushNamed(context, '/hasil-sementara-page');
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => HasilDiagnosaSementaraPage()),
+              (route) => false,
+            );
+          } else {
+            debugPrint("Errorr");
           }
         },
         builder: (context, state) {

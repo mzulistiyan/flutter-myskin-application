@@ -348,12 +348,18 @@ class _HomePageState extends State<HomePage> {
                                       ],
                                     ),
                                     Row(
-                                      children: const [
-                                        Icon(
-                                          Icons.arrow_forward_ios_rounded,
-                                          color: Color(0xffB8B8B8),
-                                          size: 20,
-                                        ),
+                                      children: [
+                                        IconButton(
+                                          onPressed: () {
+                                            Navigator.pushNamed(context,
+                                                '/term-condition-page');
+                                          },
+                                          icon: const Icon(
+                                            Icons.arrow_forward_ios_rounded,
+                                            color: Color(0xffB8B8B8),
+                                            size: 20,
+                                          ),
+                                        )
                                       ],
                                     )
                                   ],

@@ -17,6 +17,7 @@ class CheckoutBloc extends Bloc<CheckoutEvent, CheckoutState> {
       try {
         final response = await _apiService.checkout(
           event.idDokter!,
+          event.diagnosaSementara!,
         );
 
         if (response.statusCode == 200) {

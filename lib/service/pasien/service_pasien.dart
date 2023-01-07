@@ -1,8 +1,4 @@
 import 'dart:convert';
-import 'dart:math';
-
-import 'package:flutter_application_myskin/bloc/pasien/bloc/get_test_kesehatan_bloc.dart';
-import 'package:flutter_application_myskin/bloc/pasien/bloc/tes_kesehatan_kulit_bloc.dart';
 import 'package:flutter_application_myskin/shared/helper/token_helper.dart';
 import 'package:flutter_application_myskin/shared/url_helper.dart';
 import 'package:http/http.dart' as http;
@@ -255,9 +251,7 @@ class APIService {
     }
   }
 
-  Future<http.Response> checkout(
-    int idDokter,
-  ) async {
+  Future<http.Response> checkout(int idDokter, String diagnosaSementara) async {
     final TokenHelper _tokenHelper = TokenHelper();
     String token = await _tokenHelper.getToken();
     final response = await http.post(
@@ -270,6 +264,7 @@ class APIService {
       body: jsonEncode(
         {
           "id_dokter": idDokter,
+          "diagnosa_sementara": diagnosaSementara,
         },
       ),
     );

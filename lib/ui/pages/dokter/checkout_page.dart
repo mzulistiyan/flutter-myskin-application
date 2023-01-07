@@ -251,6 +251,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                     _checkoutBloc.add(
                       CheckoutPost(
                         idDokter: widget.dokter!.idDokter!,
+                        diagnosaSementara: "Cacar",
                       ),
                     );
                   },
