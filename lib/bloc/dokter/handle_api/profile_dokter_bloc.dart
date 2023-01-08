@@ -15,7 +15,7 @@ class ProfileDokterBloc extends Bloc<ProfileDokterEvent, ProfileDokterState> {
     on<ProfileDokterEvent>((event, emit) async {
       emit(ProfileDokterLoading());
       try {
-        final response = await _apiService.getDataDokter();
+        final response = await _apiService.getDokter();
         if (response.statusCode == 200) {
           emit(ProfileDokterSuccess(
               ResponseProfileDokter.fromJson(jsonDecode(response.body))));

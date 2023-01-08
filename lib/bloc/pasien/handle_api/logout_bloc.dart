@@ -12,7 +12,7 @@ class LogoutBloc extends Bloc<LogoutEvent, LogoutState> {
     on<GetLogoutPasien>((event, emit) async {
       emit(LogoutLoading());
       try {
-        final response = await _apiService.logOut();
+        final response = await _apiService.logOutPasien();
         if (response.statusCode == 200) {
           emit(LogoutSuccess(
               ResponseLogout.fromJson(jsonDecode(response.body))));

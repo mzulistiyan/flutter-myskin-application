@@ -16,7 +16,7 @@ class RegistrasiBloc extends Bloc<RegistrasiEvent, RegistrasiState> {
     on<RegisterPost>((event, emit) async {
       emit(RegistrasiLoading());
       try {
-        final response = await _apiService.registrasi(
+        final response = await _apiService.registrasiPasien(
           event.email!,
           event.password!,
           event.gender!,

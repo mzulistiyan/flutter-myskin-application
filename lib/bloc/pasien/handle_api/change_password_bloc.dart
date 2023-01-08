@@ -17,7 +17,7 @@ class ChangePasswordBloc
     on<ChangePasswordPost>((event, emit) async {
       emit(ChangePasswordLoading());
       try {
-        final response = await _apiService.changePassword(
+        final response = await _apiService.gantiPassword(
             event.oldPassword!, event.password!, event.confirmationPassword!);
         if (response.statusCode == 200) {
           print('success ChangePassword');

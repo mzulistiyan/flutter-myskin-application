@@ -1,3 +1,3 @@
 class UrlStaging {
-  static const String url = "https://edf3-103-157-48-100.ap.ngrok.io";
+  static const String url = "https://2cf4-182-253-136-55.ap.ngrok.io";
 }

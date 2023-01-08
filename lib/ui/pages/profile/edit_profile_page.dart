@@ -58,76 +58,7 @@ class _UbahProfilePageState extends State<UbahProfilePage> {
             color: Colors.black,
           ),
         ),
-        actions: [
-          BlocConsumer<UpdatePasienBloc, UpdatePasienState>(
-            bloc: _updatePasienBloc,
-            listener: (context, state) {
-              print('state is from UpdatePRofileBloc: $state');
-              if (state is UpdatePasienLoading) {
-                showDialog(
-                  context: context,
-                  barrierDismissible: false,
-                  builder: (context) {
-                    return const PopLoading();
-                  },
-                );
-              } else if (state is UpdatePasienSuccess) {
-                Future.delayed(const Duration(seconds: 1), () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return MainPage();
-                      },
-                    ),
-                  );
-                });
-                Navigator.pop(context);
-                Fluttertoast.showToast(
-                  msg: 'Data berhasil terupdate',
-                  backgroundColor: const Color(0xffEE7814),
-                  textColor: Colors.white,
-                  gravity: ToastGravity.CENTER,
-                );
-              }
-
-              if (state is UpdatePasienError) {
-                Fluttertoast.showToast(
-                    msg:
-                        responseUpdatePasienToJson(state.responseUpdatePasien));
-              }
-            },
-            builder: (context, state) {
-              return Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: InkWell(
-                  onTap: () {
-                    _updatePasienBloc.add(UpdatePasienPost(
-                      namaPasien: namePasienController.text,
-                      jenisKelamin: jenkelPasienController.text,
-                      alamat: alamatPasienController.text,
-                      tanggalLahir: tanggalLahirPasienController.text,
-                    ));
-                    print(namePasienController.text);
-                  },
-                  child: const Icon(
-                    Icons.check,
-                    color: Color(0xff6C5ECF),
-                  ),
-                ),
-              );
-            },
-          ),
-        ],
-        leading: InkWell(
-          onTap: () {
-            Navigator.pop(context);
-          },
-          child: const Icon(
-            Icons.arrow_back_ios,
-            color: Colors.black54,
-          ),
-        ),
+        actions: const [],
       ),
       body: ListView(
         padding: const EdgeInsets.symmetric(vertical: 50, horizontal: 24),
@@ -154,7 +85,7 @@ class _UbahProfilePageState extends State<UbahProfilePage> {
             child: TextFormField(
               controller: namePasienController
                 ..text = widget.pasien.data!.namaPasien!,
-              decoration: InputDecoration(),
+              decoration: const InputDecoration(),
             ),
           ),
           const SizedBox(
@@ -274,7 +205,7 @@ class _UbahProfilePageState extends State<UbahProfilePage> {
             child: TextFormField(
               controller: alamatPasienController
                 ..text = widget.pasien.data!.alamat!,
-              decoration: InputDecoration(),
+              decoration: const InputDecoration(),
             ),
           ),
           const SizedBox(
@@ -283,11 +214,61 @@ class _UbahProfilePageState extends State<UbahProfilePage> {
         ],
       ),
       bottomNavigationBar: Container(
-        padding: const EdgeInsets.all(10),
-        height: 60,
-        child: PrimaryButton(
-          text: 'Ubah Data Profile',
-          onPressed: () {},
+        padding: const EdgeInsets.symmetric(
+          horizontal: 32,
+          vertical: 32,
+        ),
+        height: 100,
+        child: BlocConsumer<UpdatePasienBloc, UpdatePasienState>(
+          bloc: _updatePasienBloc,
+          listener: (context, state) {
+            print('state is from UpdatePRofileBloc: $state');
+            if (state is UpdatePasienLoading) {
+              showDialog(
+                context: context,
+                barrierDismissible: false,
+                builder: (context) {
+                  return const PopLoading();
+                },
+              );
+            } else if (state is UpdatePasienSuccess) {
+              Future.delayed(const Duration(seconds: 1), () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return MainPage();
+                    },
+                  ),
+                );
+              });
+              Navigator.pop(context);
+              Fluttertoast.showToast(
+                msg: 'Data berhasil terupdate',
+                backgroundColor: const Color(0xffEE7814),
+                textColor: Colors.white,
+                gravity: ToastGravity.CENTER,
+              );
+            }
+
+            if (state is UpdatePasienError) {
+              Fluttertoast.showToast(
+                  msg: responseUpdatePasienToJson(state.responseUpdatePasien));
+            }
+          },
+          builder: (context, state) {
+            return PrimaryButton(
+              text: 'Ubah Data Profile',
+              onPressed: () {
+                _updatePasienBloc.add(UpdatePasienPost(
+                  namaPasien: namePasienController.text,
+                  jenisKelamin: jenkelPasienController.text,
+                  alamat: alamatPasienController.text,
+                  tanggalLahir: tanggalLahirPasienController.text,
+                ));
+              },
+            );
+          },
         ),
       ),
     );

@@ -91,11 +91,18 @@ class _TransaksiPageState extends State<TransaksiPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     transaksi[index].idDokter == null
-                        ? Text(
-                            '',
-                            style: GoogleFonts.poppins(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w500,
+                        ? Container(
+                            padding: EdgeInsets.all(4),
+                            decoration: BoxDecoration(
+                                color: Colors.red,
+                                borderRadius: BorderRadius.circular(6)),
+                            child: Text(
+                              "Menunggu Dokter",
+                              style: GoogleFonts.montserrat(
+                                fontSize: 8,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w600,
+                              ),
                             ),
                           )
                         : Text(

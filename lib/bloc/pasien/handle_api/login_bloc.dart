@@ -15,7 +15,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       emit(LoginLoading());
       try {
         final response =
-            await _apiService.loginProcess(event.email!, event.password!);
+            await _apiService.loginPasien(event.email!, event.password!);
         if (response.statusCode == 200) {
           print('success login');
           emit(LoginSuccess(ResponseLogin.fromJson(jsonDecode(response.body))));

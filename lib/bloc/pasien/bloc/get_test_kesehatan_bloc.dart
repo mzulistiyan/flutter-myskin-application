@@ -16,7 +16,7 @@ class GetTestKesehatanBloc
     on<GetTestKesehatanEvent>((event, emit) async {
       emit(GetTestKesehatanLoading());
       try {
-        final response = await _apiService.getTestKesehatan();
+        final response = await _apiService.getTestKesehatanKulit();
         if (response.statusCode == 200) {
           emit(
             GetTestKesehatanSuccess(

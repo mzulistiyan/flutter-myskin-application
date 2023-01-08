@@ -275,94 +275,101 @@ class _HomePageState extends State<HomePage> {
                           );
                         } else if (state is DokterSuccess) {
                           return Expanded(
-                            child: ListView.builder(
-                              padding: EdgeInsets.zero,
-                              shrinkWrap: true,
-                              itemCount:
-                                  state.responseGetDokter.data!.dokter!.length,
-                              itemBuilder: (context, index) => Container(
-                                height: 80,
-                                margin: const EdgeInsets.symmetric(vertical: 5),
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 10),
-                                decoration: BoxDecoration(
-                                    color: const Color(0xffFFFFFF),
-                                    border: Border.all(
-                                      color: const Color(0xffE3E3E3),
-                                      width: 1,
-                                    ),
-                                    borderRadius: BorderRadius.circular(8)),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Image.asset(
-                                          'assets/icons/icon_dokter.png',
-                                          width: 55,
-                                        ),
-                                        const SizedBox(
-                                          width: 10,
-                                        ),
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Text(
-                                              state.responseGetDokter.data!
-                                                  .dokter![index].namaDokter!,
-                                              style: GoogleFonts.poppins(
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.w600,
-                                              ),
-                                            ),
-                                            Text(
-                                              state.responseGetDokter.data!
-                                                  .dokter![index].rumahSakit!,
-                                              style: GoogleFonts.poppins(
-                                                fontSize: 10,
-                                                fontWeight: FontWeight.w400,
-                                              ),
-                                            ),
-                                            Row(
-                                              children: [
-                                                const Icon(
-                                                  Icons.star,
-                                                  color: Color(0xffFFA235),
-                                                  size: 17,
-                                                ),
-                                                Text(
-                                                  '4.6',
-                                                  style: GoogleFonts.poppins(
-                                                    fontSize: 12,
-                                                    fontWeight: FontWeight.w600,
-                                                  ),
-                                                )
-                                              ],
-                                            )
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      children: [
-                                        IconButton(
-                                          onPressed: () {
-                                            Navigator.pushNamed(context,
-                                                '/term-condition-page');
-                                          },
-                                          icon: const Icon(
-                                            Icons.arrow_forward_ios_rounded,
-                                            color: Color(0xffB8B8B8),
-                                            size: 20,
+                            child: RefreshIndicator(
+                              onRefresh: () async {
+                                _dokterBloc.add(GetDokter());
+                              },
+                              child: ListView.builder(
+                                padding: EdgeInsets.zero,
+                                shrinkWrap: true,
+                                itemCount: state
+                                    .responseGetDokter.data!.dokter!.length,
+                                itemBuilder: (context, index) => Container(
+                                  height: 80,
+                                  margin:
+                                      const EdgeInsets.symmetric(vertical: 5),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10),
+                                  decoration: BoxDecoration(
+                                      color: const Color(0xffFFFFFF),
+                                      border: Border.all(
+                                        color: const Color(0xffE3E3E3),
+                                        width: 1,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8)),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Image.asset(
+                                            'assets/icons/icon_dokter.png',
+                                            width: 55,
                                           ),
-                                        )
-                                      ],
-                                    )
-                                  ],
+                                          const SizedBox(
+                                            width: 10,
+                                          ),
+                                          Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                state.responseGetDokter.data!
+                                                    .dokter![index].namaDokter!,
+                                                style: GoogleFonts.poppins(
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.w600,
+                                                ),
+                                              ),
+                                              Text(
+                                                state.responseGetDokter.data!
+                                                    .dokter![index].rumahSakit!,
+                                                style: GoogleFonts.poppins(
+                                                  fontSize: 10,
+                                                  fontWeight: FontWeight.w400,
+                                                ),
+                                              ),
+                                              Row(
+                                                children: [
+                                                  const Icon(
+                                                    Icons.star,
+                                                    color: Color(0xffFFA235),
+                                                    size: 17,
+                                                  ),
+                                                  Text(
+                                                    '4.6',
+                                                    style: GoogleFonts.poppins(
+                                                      fontSize: 12,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                    ),
+                                                  )
+                                                ],
+                                              )
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        children: [
+                                          IconButton(
+                                            onPressed: () {
+                                              Navigator.pushNamed(context,
+                                                  '/term-condition-page');
+                                            },
+                                            icon: const Icon(
+                                              Icons.arrow_forward_ios_rounded,
+                                              color: Color(0xffB8B8B8),
+                                              size: 20,
+                                            ),
+                                          )
+                                        ],
+                                      )
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),

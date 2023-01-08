@@ -6,18 +6,7 @@ import 'package:http/http.dart' as http;
 class APIService {
   String baseUrl = UrlStaging.url;
 
-  Future<http.Response> loginDokter(String email, String password) async {
-    final response = await http.post(Uri.parse('$baseUrl/api/login/dokter'),
-        headers: {"Content-Type": "application/json", "Accept": "*/*"},
-        body: jsonEncode({"email": email, "password": password}));
-    try {
-      return response;
-    } catch (e) {
-      return response;
-    }
-  }
-
-  Future<http.Response> loginProcess(String email, String password) async {
+  Future<http.Response> loginPasien(String email, String password) async {
     final response = await http.post(Uri.parse('$baseUrl/api/login'),
         headers: {"Content-Type": "application/json", "Accept": "*/*"},
         body: jsonEncode({"email": email, "password": password}));
@@ -28,7 +17,7 @@ class APIService {
     }
   }
 
-  Future<http.Response> logOut() async {
+  Future<http.Response> logOutPasien() async {
     final TokenHelper _tokenHelper = TokenHelper();
     String token = await _tokenHelper.getToken();
     final response = await http.post(
@@ -46,7 +35,7 @@ class APIService {
     }
   }
 
-  Future<http.Response> registrasi(
+  Future<http.Response> registrasiPasien(
     String email,
     String password,
     String gender,
@@ -94,32 +83,12 @@ class APIService {
     }
   }
 
-  Future<http.Response> getTestKesehatan() async {
+  Future<http.Response> getTestKesehatanKulit() async {
     final TokenHelper _tokenHelper = TokenHelper();
     String token = await _tokenHelper.getToken();
 
     final response = await http.get(
       Uri.parse('$baseUrl/api/get/teskesehatan'),
-      headers: {
-        "Content-Type": "application/json;charset=UTF-8",
-        "Authorization": "Bearer $token",
-        "Charset": "utf-8"
-      },
-    );
-    print(token);
-    try {
-      return response;
-    } catch (e) {
-      return response;
-    }
-  }
-
-  Future<http.Response> getTransaction() async {
-    final TokenHelper _tokenHelper = TokenHelper();
-    String token = await _tokenHelper.getToken();
-
-    final response = await http.get(
-      Uri.parse('$baseUrl/api/transaction'),
       headers: {
         "Content-Type": "application/json;charset=UTF-8",
         "Authorization": "Bearer $token",
@@ -224,7 +193,7 @@ class APIService {
     }
   }
 
-  Future<http.Response> changePassword(
+  Future<http.Response> gantiPassword(
     String oldPassword,
     String newPassword,
     String confirmationPassword,
@@ -269,6 +238,26 @@ class APIService {
       ),
     );
     print(response.statusCode);
+    try {
+      return response;
+    } catch (e) {
+      return response;
+    }
+  }
+
+  Future<http.Response> getDataTransaction() async {
+    final TokenHelper _tokenHelper = TokenHelper();
+    String token = await _tokenHelper.getToken();
+
+    final response = await http.get(
+      Uri.parse('$baseUrl/api/transaction'),
+      headers: {
+        "Content-Type": "application/json;charset=UTF-8",
+        "Authorization": "Bearer $token",
+        "Charset": "utf-8"
+      },
+    );
+    print(token);
     try {
       return response;
     } catch (e) {

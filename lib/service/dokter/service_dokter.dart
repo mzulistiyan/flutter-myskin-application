@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 
 class APIServiceDokter {
   String baseUrl = UrlStaging.url;
+
   Future<http.Response> loginDokter(String email, String password) async {
     final response = await http.post(Uri.parse('$baseUrl/api/login/dokter'),
         headers: {"Content-Type": "application/json", "Accept": "*/*"},
@@ -36,7 +37,7 @@ class APIServiceDokter {
     }
   }
 
-  Future<http.Response> getDokter() async {
+  Future<http.Response> getAllDokter() async {
     final TokenHelper _tokenHelper = TokenHelper();
     String token = await _tokenHelper.getToken();
 
@@ -56,19 +57,26 @@ class APIServiceDokter {
     }
   }
 
-  Future<http.Response> getConsultsDokter() async {
+  Future<http.Response> changePasswordDokter(
+    String oldPassword,
+    String newPassword,
+    String confirmationPassword,
+  ) async {
     final TokenHelper _tokenHelper = TokenHelper();
     String token = await _tokenHelper.getToken();
+    final response =
+        await http.post(Uri.parse('$baseUrl/api/pasien/change-password'),
+            headers: {
+              "Content-Type": "application/json",
+              "Accept": "*/*",
+              "Authorization": "Bearer $token"
+            },
+            body: jsonEncode({
+              'old_password': oldPassword,
+              'password': newPassword,
+              'confirmation_password': confirmationPassword,
+            }));
 
-    final response = await http.get(
-      Uri.parse('$baseUrl/api/consults/dokter'),
-      headers: {
-        "Content-Type": "application/json;charset=UTF-8",
-        "Authorization": "Bearer $token",
-        "Charset": "utf-8"
-      },
-    );
-    print(token);
     try {
       return response;
     } catch (e) {
@@ -76,7 +84,7 @@ class APIServiceDokter {
     }
   }
 
-  Future<http.Response> getDataDokter() async {
+  Future<http.Response> getDokter() async {
     final TokenHelper _tokenHelper = TokenHelper();
     String token = await _tokenHelper.getToken();
 
@@ -89,34 +97,6 @@ class APIServiceDokter {
       },
     );
     print(token);
-    try {
-      return response;
-    } catch (e) {
-      return response;
-    }
-  }
-
-  Future<http.Response> updatePasien(
-    String namaPasien,
-    String jenisKelamin,
-    String tanggalLahir,
-    String alamat,
-  ) async {
-    final TokenHelper _tokenHelper = TokenHelper();
-    String token = await _tokenHelper.getToken();
-    final response = await http.post(Uri.parse('$baseUrl/api/update/pasien'),
-        headers: {
-          "Content-Type": "application/json",
-          "Accept": "*/*",
-          "Authorization": "Bearer $token"
-        },
-        body: jsonEncode({
-          "nama_pasien": namaPasien,
-          "jenis_kelamin": jenisKelamin,
-          "tanggal_lahir": tanggalLahir,
-          "alamat": alamat,
-        }));
-    print(response.body);
     try {
       return response;
     } catch (e) {
@@ -173,26 +153,19 @@ class APIServiceDokter {
     }
   }
 
-  Future<http.Response> changePassword(
-    String oldPassword,
-    String newPassword,
-    String confirmationPassword,
-  ) async {
+  Future<http.Response> getConsultsDokter() async {
     final TokenHelper _tokenHelper = TokenHelper();
     String token = await _tokenHelper.getToken();
-    final response =
-        await http.post(Uri.parse('$baseUrl/api/pasien/change-password'),
-            headers: {
-              "Content-Type": "application/json",
-              "Accept": "*/*",
-              "Authorization": "Bearer $token"
-            },
-            body: jsonEncode({
-              'old_password': oldPassword,
-              'password': newPassword,
-              'confirmation_password': confirmationPassword,
-            }));
 
+    final response = await http.get(
+      Uri.parse('$baseUrl/api/consults/dokter'),
+      headers: {
+        "Content-Type": "application/json;charset=UTF-8",
+        "Authorization": "Bearer $token",
+        "Charset": "utf-8"
+      },
+    );
+    print(token);
     try {
       return response;
     } catch (e) {
